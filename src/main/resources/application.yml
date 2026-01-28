@@ -4,11 +4,11 @@ spring:
 #  profiles:
 #    active: dev
 #
-#build:
-#  id: 122
-#  version: 2.2.2
-#  name: "Default-Build"
-#  type: "Default Build"
+build:
+  id: ${ID}
+  version: ${VERSION}
+  name: ${NAME}
+
 
 server:
   port: 8084

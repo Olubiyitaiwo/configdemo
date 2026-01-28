@@ -6,7 +6,6 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <!-- Spring Boot Parent -->
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
@@ -18,24 +17,23 @@
     <artifactId>configdemo</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>configdemo</name>
-    <description>Spring Boot configuration demo</description>
 
-    <!-- Java & Dependency Versions -->
     <properties>
         <java.version>21</java.version>
         <lombok.version>1.18.30</lombok.version>
+
+        <!-- Defaults -->
+        <ID>default</ID>
+        <NAME>configdemo</NAME>
+        <VERSION>0.0.1-SNAPSHOT</VERSION>
     </properties>
 
-    <!-- Dependencies -->
     <dependencies>
-
-        <!-- Spring Web (Tomcat + MVC) -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-        <!-- Lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -43,52 +41,56 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Testing -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
 
-    <!-- Build Configuration -->
     <build>
-
         <plugins>
 
-            <!-- Java Compiler -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
-                    <annotationProcessorPaths>
-                        <path>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                            <version>${lombok.version}</version>
-                        </path>
-                    </annotationProcessorPaths>
                 </configuration>
             </plugin>
 
-            <!-- Spring Boot Fat JAR -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>4.0.1</version>
+
                 <executions>
+
+                    <execution>
+                        <id>build-info</id>
+                        <goals>
+                            <goal>build-info</goal>
+                        </goals>
+                        <configuration>
+                            <additionalProperties>
+                                <id>${ID}</id>
+                                <name>${NAME}</name>
+                                <version>${VERSION}</version>
+                            </additionalProperties>
+                        </configuration>
+                    </execution>
+
                     <execution>
                         <goals>
                             <goal>repackage</goal>
                         </goals>
                     </execution>
+
                 </executions>
             </plugin>
 
         </plugins>
-
     </build>
 
 </project>
